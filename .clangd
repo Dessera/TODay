@@ -1,0 +1,21 @@
+CompileFlags:
+  CompilationDatabase: builddir
+Diagnostics:
+  ClangTidy:
+    Add: [
+      readability-*,
+      cppcoreguidelines-*,
+      bugprone-*,
+      modernize-*,
+      performance-*,
+      misc-*
+    ]
+    Remove: [
+      bugprone-forward-declaration-namespace,
+      cppcoreguidelines-special-member-functions,
+      modernize-use-trailing-return-type,
+      modernize-use-auto,
+      readability-identifier-length,
+    ]
+InlayHints:
+  BlockEnd: true
