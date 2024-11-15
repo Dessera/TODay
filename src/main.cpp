@@ -1,6 +1,6 @@
 #include "mainwindow.h"
-#include "today/todotask/todotask.h"
 #include <qapplication.h>
+#include <qstyleditemdelegate.h>
 
 #include <qtreeview.h>
 #include <today/todotask/model.h>
@@ -18,8 +18,8 @@ main(int argc, char* argv[])
     { 3, "Task 3", "Description 3", {}, {} },
     {
       4,
-      "Task 3",
-      "Description 3",
+      "Task 3 - 1",
+      "Description 3 - 1",
       {},
       {},
       TodoTaskStatus::Done,
@@ -29,9 +29,21 @@ main(int argc, char* argv[])
   } };
 
   auto* model = new TodoTaskModel{ tasks };
+  auto* delegate = new QStyledItemDelegate{};
   QTreeView view;
 
+  QObject::connect(model,
+                   &TodoTaskModel::dataChanged,
+                   [](const QModelIndex& topLeft,
+                      const QModelIndex& bottomRight,
+                      const QVector<int>& roles) {
+                     qDebug()
+                       << "Data changed: " << topLeft << bottomRight << roles;
+                   });
+
   view.setModel(model);
+  view.setItemDelegate(delegate);
+
   view.show();
 
   return QApplication::exec();

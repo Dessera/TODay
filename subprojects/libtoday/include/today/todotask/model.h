@@ -34,19 +34,18 @@ public:
                                     const QModelIndex& index) const override;
   [[nodiscard]] bool hasChildren(const QModelIndex& parent) const override;
 
-  // [[nodiscard]] Qt::ItemFlags flags(const QModelIndex& index) const override;
+  [[nodiscard]] Qt::ItemFlags flags(const QModelIndex& index) const override;
 
-  // [[nodiscard]] bool setData(const QModelIndex& index,
-  //                            const QVariant& value,
-  //                            int role = Qt::EditRole) override;
+  [[nodiscard]] bool setData(const QModelIndex& index,
+                             const QVariant& value,
+                             int role = Qt::EditRole) override;
 
 private:
-  [[nodiscard]] static TodoTask* from_index(const QModelIndex& index);
-  [[nodiscard]] TodoTask* get_parent(TodoTask* task) const;
-  [[nodiscard]] int row_of_task(TodoTask* task) const;
+  [[nodiscard]] TodoTask::ConstPtr get_parent(TodoTask::ConstPtr task) const;
+  [[nodiscard]] int row_of_task(TodoTask::ConstPtr task) const;
 
 public:
-  [[nodiscard]] QList<TodoTask*> tasks(
+  [[nodiscard]] QList<TodoTask::ConstPtr> tasks(
     int parent_id = TodoTask::INVALID_ID) const;
 
 private:
